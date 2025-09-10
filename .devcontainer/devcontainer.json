@@ -1,0 +1,90 @@
+{
+  "name": "Odoo 18 Development Environment",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    "args": {
+      "ODOO_VERSION": "18.0",
+      "ODOO_RELEASE": "20241101",
+      "ODOO_SHA": "f8eab5b6d0f2797d0b7f93b6d5bb3a8e2ff6f999"
+    }
+  },
+  "containerUser": "odoo",
+  "remoteUser": "odoo",
+  "workspaceFolder": "/workspace",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  
+  "containerEnv": {
+    "ODOO_RC": "/workspace/.devcontainer/odoo.conf",
+    "ODOO_VERSION": "18.0",
+    "LANG": "en_US.UTF-8",
+    "PGHOST": "postgres",
+    "PGPORT": "5432",
+    "PGUSER": "odoo",
+    "PGPASSWORD": "odoo",
+    "PYTHONPATH": "/workspace/addons:/mnt/extra-addons"
+  },
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        "ms-vscode.vscode-xml",
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-json",
+        "formulahendry.auto-rename-tag",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "python.linting.pylintArgs": [
+          "--load-plugins=pylint_odoo",
+          "--valid-odoo-versions=18.0"
+        ],
+        "files.watcherExclude": {
+          "**/__pycache__/**": true,
+          "**/filestore/**": true
+        },
+        "files.associations": {
+          "*.xml": "xml"
+        }
+      }
+    }
+  },
+  
+  "forwardPorts": [8069, 8071, 8072, 5432],
+  "portsAttributes": {
+    "8069": {
+      "label": "Odoo Web Interface",
+      "onAutoForward": "notify"
+    },
+    "8071": {
+      "label": "Odoo Live Chat",
+      "onAutoForward": "ignore"
+    },
+    "8072": {
+      "label": "Odoo Longpolling",
+      "onAutoForward": "ignore"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "ignore"
+    }
+  },
+  
+  "postCreateCommand": "bash .devcontainer/setup-dev.sh",
+  "postStartCommand": "bash .devcontainer/start-services.sh"
+}
