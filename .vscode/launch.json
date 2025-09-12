@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Odoo Development Server",
+            "type": "python",
+            "request": "launch",
+            "program": "/usr/bin/odoo",
+            "args": [
+                "-c", "/workspace/.devcontainer/odoo.conf",
+                "--dev", "xml,reload,qweb,werkzeug,reload_on_update",
+                "--limit-time-real", "99999",
+                "--workers", "0"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "/workspace",
+            "env": {
+                "PYTHONPATH": "/workspace/addons:/mnt/extra-addons"
+            }
+        },
+        {
+            "name": "Odoo Test Mode",
+            "type": "python",
+            "request": "launch",
+            "program": "/usr/bin/odoo",
+            "args": [
+                "-c", "/workspace/.devcontainer/odoo.conf",
+                "--test-enable",
+                "--stop-after-init",
+                "-i", "base"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

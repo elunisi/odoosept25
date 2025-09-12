@@ -1,0 +1,21 @@
+{
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "/home/odoo/.local/bin/pylint",
+    "python.formatting.provider": "black",
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_odoo",
+        "--valid-odoo-versions=18.0"
+    ],
+    "files.associations": {
+        "*.xml": "xml",
+        "*.js": "javascript",
+        "*.scss": "scss"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/filestore": true
+    }
+}
