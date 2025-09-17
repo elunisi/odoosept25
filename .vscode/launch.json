@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Odoo Development Server",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "/usr/bin/odoo",
             "args": [
@@ -20,7 +20,7 @@
         },
         {
             "name": "Odoo Test Mode",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "/usr/bin/odoo",
             "args": [
