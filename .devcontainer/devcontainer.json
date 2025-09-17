@@ -11,12 +11,18 @@
   },
   "containerUser": "odoo",
   "remoteUser": "odoo",
+  "updateRemoteUserUID": true,
   "workspaceFolder": "/workspace",
   
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "odoo",
+      "userUid": 1000,
+      "userGid": 1000
     }
   },
   
