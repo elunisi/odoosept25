@@ -21,8 +21,8 @@
     },
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "odoo",
-      "userUid": 1000,
-      "userGid": 1000
+      "userUid": 9001,
+      "userGid": 9001
     }
   },
   
