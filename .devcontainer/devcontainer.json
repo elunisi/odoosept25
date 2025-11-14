@@ -52,14 +52,14 @@
 #        "esbenp.prettier-vscode"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/bin/python3",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "python.formatting.provider": "black",
-        "python.linting.pylintArgs": [
-          "--load-plugins=pylint_odoo",
-          "--valid-odoo-versions=18.0"
-        ],
+#        "python.defaultInterpreterPath": "/usr/bin/python3",
+#        "python.linting.enabled": true,
+#        "python.linting.pylintEnabled": true,
+#        "python.formatting.provider": "black",
+#        "python.linting.pylintArgs": [
+#          "--load-plugins=pylint_odoo",
+#          "--valid-odoo-versions=18.0"
+#        ],
         "files.watcherExclude": {
           "**/__pycache__/**": true,
           "**/filestore/**": true
