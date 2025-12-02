@@ -1,23 +1,4 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Odoo",
-      "type": "python",
-      "request": "launch",
-      "program": "${workspaceRoot}/odoo-bin",
-      "args": [
-        "--config=${workspaceRoot}/.devcontainer/odoo.conf",
-        // "--dev=xml,reload" // Optional: Auto-reload on python/xml changes
-      ],
-      "console": "integratedTerminal",
-      "justMyCode": false
-    }
-  ]
-}
-
-
-{
     "version": "0.2.0",
     "configurations": [
         {
