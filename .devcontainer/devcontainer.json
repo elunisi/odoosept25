@@ -5,80 +5,95 @@
     "context": ".",
     "args": {
       "ODOO_VERSION": "18.0",
-      "ODOO_RELEASE": "20241101",
-      "ODOO_SHA": "f8eab5b6d0f2797d0b7f93b6d5bb3a8e2ff6f999"
+      "ODOO_RELEASE": "20241101"
     }
   },
-  "workspaceFolder": "/workspace",
+
+  // Dynamic path ensures compatibility regardless of what you name your local folder
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
   // Set the non-root user
   "remoteUser": "odoo",
   "containerUser": "odoo",
 
-  // Ensure UID matches the Coder workspace owner to fix file permissions
+  // Critical: Syncs container UID with your Host UID to prevent permission errors on Linux
   "updateRemoteUserUID": true,
 
   "features": {
-    // Fix Docker socket permissions (if you use Docker)
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
-    
     "ghcr.io/devcontainers/features/git:1": {},
-//    "ghcr.io/devcontainers/features/python:1": {
-//      "version": "3.11"
-//    },
-    // Ensure sudo works for this user
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "odoo",
-      "userUid": 9001,
-      "userGid": 9001
+      "configureZshAsDefaultShell": true
     }
   },
-  
+
   "containerEnv": {
     "ODOO_RC": "${containerWorkspaceFolder}/.devcontainer/odoo.conf",
     "ODOO_VERSION": "18.0",
     "LANG": "en_US.UTF-8",
+    // Database connection
     "PGHOST": "postgres",
     "PGPORT": "5432",
     "PGUSER": "odoo",
     "PGPASSWORD": "odoo",
-    "PYTHONPATH": "/workspace/addons:/mnt/extra-addons"
+    // Python Path: Add workspace addons and extra addons
+    "PYTHONPATH": "${containerWorkspaceFolder}/addons:${containerWorkspaceFolder}/enterprise:/mnt/extra-addons"
   },
-  
+
   "customizations": {
     "vscode": {
       "extensions": [
-#        "ms-python.python",
-#        "ms-python.debugpy",
-#        "ms-python.pylint",
-#        "ms-python.black-formatter",
-#        "ms-vscode.vscode-xml",
-#        "redhat.vscode-yaml",
-#        "ms-vscode.vscode-json",
-#        "formulahendry.auto-rename-tag",
-#        "bradlc.vscode-tailwindcss",
-#        "esbenp.prettier-vscode"
+        // Python Essentials
+        "ms-python.python",
+        "ms-python.debugpy",        // Required for the new "type": "debugpy" configuration
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        
+        // Web & Formatters
+        "ms-vscode.vscode-xml",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        
+        // Odoo Specific Helpers
+        "mxsdev.odoo-snippets", 
+        "flgrib.odoo-snippets"
       ],
       "settings": {
-#        "python.defaultInterpreterPath": "/usr/bin/python3",
-#        "python.linting.enabled": true,
-#        "python.linting.pylintEnabled": true,
-#        "python.formatting.provider": "black",
-#        "python.linting.pylintArgs": [
-#          "--load-plugins=pylint_odoo",
-#          "--valid-odoo-versions=18.0"
-#        ],
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.formatting.provider": "black",
+        
+        // Pylint Configuration (Requires pylint-odoo to be installed in postCreateCommand)
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.linting.pylintArgs": [
+          "--load-plugins=pylint_odoo",
+          "--valid-odoo-versions=18.0",
+          "--disable=C0114,C0115,C0116" // Ignore missing docstring warnings
+        ],
+
+        // Performance: Exclude heavy folders from watchers
         "files.watcherExclude": {
           "**/__pycache__/**": true,
-          "**/filestore/**": true
+          "**/filestore/**": true,
+          "**/*.pyc": true
         },
+        
+        // Odoo XML Formatting Rules
         "files.associations": {
-          "*.xml": "xml"
-        }
+          "*.xml": "xml",
+          "*.csv": "csv"
+        },
+        "[xml]": {
+          "editor.defaultFormatter": "ms-vscode.vscode-xml",
+          "editor.formatOnSave": true
+        },
+        "xml.format.splitAttributes": true, // Forces attributes to new lines (Best practice for Odoo)
+        "xml.format.maxLineWidth": 120
       }
     }
   },
-  
+
   "forwardPorts": [8069, 8071, 8072, 5432],
   "portsAttributes": {
     "8069": {
@@ -98,7 +113,11 @@
       "onAutoForward": "ignore"
     }
   },
+
+  // Runs once during image build/creation.
+  // Use this script to pip install requirements and pylint-odoo.
+  "postCreateCommand": "bash .devcontainer/setup-dev.sh"
   
-  "postCreateCommand": "bash .devcontainer/setup-dev.sh",
-  "postStartCommand": "bash .devcontainer/start-services.sh"
+  // Removed "postStartCommand" so the server doesn't auto-start,
+  // allowing you to use the VS Code Debugger ("F5") instead.
 }
