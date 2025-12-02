@@ -35,7 +35,7 @@
   },
   
   "containerEnv": {
-    "ODOO_RC": "/workspace/.devcontainer/odoo.conf",
+    "ODOO_RC": "{localWorkspaceFolder}/.devcontainer/odoo.conf",
     "ODOO_VERSION": "18.0",
     "LANG": "en_US.UTF-8",
     "PGHOST": "postgres",
