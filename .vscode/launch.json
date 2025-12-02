@@ -13,9 +13,9 @@
                 "--workers=0"
             ],
             "console": "integratedTerminal",
-            "cwd": "/workspace",
+            "cwd": "${workspaceRoot}",
             "env": {
-                "PYTHONPATH": "/workspace/addons:/mnt/extra-addons"
+                "PYTHONPATH": "${workspaceRoot}/addons:/mnt/extra-addons"
             }
         },
         {
@@ -24,7 +24,7 @@
             "request": "launch",
             "program": "/usr/bin/odoo",
             "args": [
-                "-c", "/workspace/.devcontainer/odoo.conf",
+                "-c", "${workspaceRoot}/.devcontainer/odoo.conf",
                 "--test-enable",
                 "--stop-after-init",
                 "-i", "base"
