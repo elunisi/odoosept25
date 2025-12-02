@@ -1,4 +1,23 @@
 {
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Odoo",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceRoot}/odoo-bin",
+      "args": [
+        "--config=${workspaceRoot}/.devcontainer/odoo.conf",
+        // "--dev=xml,reload" // Optional: Auto-reload on python/xml changes
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}
+
+
+{
     "version": "0.2.0",
     "configurations": [
         {
@@ -7,10 +26,10 @@
             "request": "launch",
             "program": "/usr/bin/odoo",
             "args": [
-                "-c", "/workspace/.devcontainer/odoo.conf",
-                "--dev", "xml,reload,qweb,werkzeug,reload_on_update",
-                "--limit-time-real", "99999",
-                "--workers", "0"
+                "--config=${workspaceRoot}/.devcontainer/odoo.conf",
+                "--dev=xml,reload,qweb,werkzeug,reload_on_update",
+                "--limit-time-real=99999",
+                "--workers=0"
             ],
             "console": "integratedTerminal",
             "cwd": "/workspace",
