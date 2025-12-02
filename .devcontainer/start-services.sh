@@ -11,7 +11,7 @@ fi
 
 # Set development environment variables
 export ODOO_DEV=true
-export PYTHONPATH="/workspace/addons:${PYTHONPATH}"
+export PYTHONPATH="/workspaces/addons:${PYTHONPATH}"
 
 # Start any additional development services
 echo "Services initialization complete!"
