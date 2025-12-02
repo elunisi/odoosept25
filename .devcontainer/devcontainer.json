@@ -9,16 +9,24 @@
       "ODOO_SHA": "f8eab5b6d0f2797d0b7f93b6d5bb3a8e2ff6f999"
     }
   },
-  "containerUser": "odoo",
-  "remoteUser": "odoo",
-  "updateRemoteUserUID": true,
   "workspaceFolder": "/workspace",
-  
+
+  // Set the non-root user
+  "remoteUser": "odoo",
+  "containerUser": "odoo",
+
+  // Ensure UID matches the Coder workspace owner to fix file permissions
+  "updateRemoteUserUID": true,
+
   "features": {
+    // Fix Docker socket permissions (if you use Docker)
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    
 #    "ghcr.io/devcontainers/features/git:1": {},
 #    "ghcr.io/devcontainers/features/python:1": {
 #      "version": "3.11"
 #    },
+    // Ensure sudo works for this user
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "odoo",
       "userUid": 9001,
