@@ -4,8 +4,8 @@ set -e
 echo "Setting up Odoo development environment..."
 
 # Create necessary directories
-mkdir -p /workspaces/{addons,data,logs,filestore}
-chmod 755 /workspaces/{addons,data,logs,filestore}
+sudo mkdir -p /workspaces/{addons,data,logs,filestore}
+sudo chmod 755 /workspaces/{addons,data,logs,filestore}
 
 # Install additional development dependencies
 pip3 install --break-system-packages --user \
