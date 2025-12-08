@@ -3,9 +3,12 @@ set -e
 
 echo "Setting up Odoo development environment..."
 
+# Set proper ownership
+sudo chown -R odoo:odoo /workspaces
+
 # Create necessary directories
-sudo mkdir -p /workspaces/{addons,data,logs,filestore}
-sudo chmod 755 /workspaces/{addons,data,logs,filestore}
+mkdir -p /workspaces/{addons,data,logs,filestore}
+chmod 755 /workspaces/{addons,data,logs,filestore}
 
 # Install additional development dependencies
 pip3 install --break-system-packages --user \
@@ -37,8 +40,5 @@ EOF
 # Custom development module
 EOF
 fi
-
-# Set proper ownership
-sudo chown -R odoo:odoo /workspaces
 
 echo "Development environment setup complete!"
